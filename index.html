@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Quieres ser mi San Valentín?</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #ffffff;
+            --accent-color: #ff4d6d;
+            --bg-1: #ff758c;
+            --bg-2: #ff7eb3;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(45deg, #fbdae0, #ffccd5, #ffb3c1);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            color: var(--primary-color);
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- ELEMENTOS DE FONDO --- */
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* --- CONTENEDOR SIN RECUADRO --- */
+        .container {
+            text-align: center;
+            z-index: 10;
+            padding: 20px;
+            max-width: 600px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: clamp(1.8rem, 6vw, 4rem);
+            margin-bottom: 1.5rem;
+            color: #ff4d6d;
+            animation: floating 3s ease-in-out infinite;
+            line-height: 1.2;
+        }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .subtitle {
+            font-size: clamp(0.9rem, 3vw, 1.2rem);
+            color: #ff758c;
+            margin-bottom: 2rem;
+            font-weight: 300;
+            line-height: 1.5;
+        }
+
+        /* --- BOTONES --- */
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 20px;
+            align-items: center;
+            min-height: 150px;
+        }
+
+        @media (min-width: 768px) {
+            .btn-container {
+                flex-direction: row;
+                gap: 30px;
+            }
+        }
+
+        .btn {
+            padding: 12px 35px;
+            border: none;
+            border-radius: 50px;
+            font-size: clamp(1rem, 4vw, 1.2rem);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 20px rgba(255, 77, 109, 0.2);
+            min-width: 180px;
+        }
+
+        @media (min-width: 768px) {
+            .btn {
+                padding: 15px 40px;
+            }
+        }
+
+        .btn-yes {
+            background: #ff4d6d;
+            color: white;
+        }
+
+        .btn-yes:hover {
+            transform: scale(1.1);
+            background: #ff3355;
+            box-shadow: 0 15px 30px rgba(255, 77, 109, 0.4);
+        }
+
+        .btn-no {
+            background: rgba(255, 255, 255, 0.8);
+            color: #ff4d6d;
+            position: relative;
+        }
+
+        /* --- ESTADO DE ÉXITO --- */
+        .hidden {
+            display: none;
+            opacity: 0;
+        }
+
+        .success-message {
+            font-family: 'Pacifico', cursive;
+            font-size: clamp(1.8rem, 6vw, 3rem);
+            color: #ff4d6d;
+            line-height: 1.4;
+        }
+
+        .special-text {
+            margin-top: 20px;
+            font-size: clamp(0.9rem, 3vw, 1.1rem);
+            color: #ff758c;
+            opacity: 0;
+            animation: fadeIn 2s forwards 1s;
+            line-height: 1.6;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* Partículas de corazón */
+        .particle {
+            position: absolute;
+            pointer-events: none;
+            animation: fly linear infinite;
+        }
+
+        @keyframes fly {
+            from { transform: translateY(100vh) scale(0); opacity: 1; }
+            to { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="floating-elements" id="bg-elements"></div>
+
+    <div class="container" id="main-content">
+        <div id="ask-section">
+            <h1>¿Quieres ser mi San Valentín, querida amada mía?</h1>
+            <p class="subtitle">Cada momento contigo es mi parte favorita del día, de la vida mi amor caray, soy tan feliiii contigo de verdad mi chiquilla bonita.</p>
+            <div class="btn-container">
+                <button class="btn btn-yes" id="yesBtn">¡Sí, claro! 💖</button>
+                <button class="btn btn-no" id="noBtn">No 😈</button>
+            </div>
+        </div>
+
+        <div id="success-section" class="hidden">
+            <div class="success-message">¡Gracias por elegir nuestra historia todos los días!</div>
+            <div class="special-text">Eres la persona que hace que todo sea especial. Mi nena pechocha vienen sorpresas, y sorpresas para estos días especiales mi corazoncito de melón y melocotón, te amo te amo te amo te amo te amo te amo y te amo con toda toda mi alma en verdad cielito lindooooo, mi niña y ño solo eso, hay otra fecha más en este mes mi bien, regalitos para mi princesa consentida, te amo pequeña. ✨</div>
+            <div style="font-size: 5rem; margin-top: 20px;">🥰</div>
+        </div>
+    </div>
+
+    <script>
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const askSection = document.getElementById('ask-section');
+        const successSection = document.getElementById('success-section');
+        const bgElements = document.getElementById('bg-elements');
+
+        // Crear corazones de fondo continuamente
+        function createBackgroundElement() {
+            const heart = document.createElement('div');
+            heart.className = 'particle';
+            heart.innerHTML = ['❤️', '✨', '🌸', '💖'][Math.floor(Math.random() * 4)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            heart.style.opacity = Math.random();
+            bgElements.appendChild(heart);
+
+            setTimeout(() => heart.remove(), 7000);
+        }
+
+        setInterval(createBackgroundElement, 500);
+
+        // Lógica del botón No
+        const moveButton = () => {
+            const maxX = window.innerWidth - noBtn.offsetWidth - 20;
+            const maxY = window.innerHeight - noBtn.offsetHeight - 20;
+            const x = Math.random() * Math.max(maxX, 100) + 10;
+            const y = Math.random() * Math.max(maxY, 100) + 10;
+            
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = `${Math.min(x, maxX)}px`;
+            noBtn.style.top = `${Math.min(y, maxY)}px`;
+            noBtn.style.transition = 'all 0.2s ease';
+        };
+
+        noBtn.addEventListener('mouseover', moveButton);
+        noBtn.addEventListener('touchstart', (e) => { e.preventDefault(); moveButton(); });
+
+        // Lógica del botón Sí
+        yesBtn.addEventListener('click', () => {
+            askSection.style.opacity = '0';
+            setTimeout(() => {
+                askSection.classList.add('hidden');
+                successSection.classList.remove('hidden');
+                successSection.style.opacity = '1';
+                
+                // Intensificar la lluvia de corazones
+                for(let i=0; i<50; i++) {
+                    setTimeout(createBackgroundElement, i * 50);
+                }
+                
+                document.body.style.background = "linear-gradient(45deg, #ff9a9e, #fad0c4, #ffecd2)";
+            }, 500);
+        });
+    </script>
+</body>
+</html>
